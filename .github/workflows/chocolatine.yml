@@ -23,6 +23,12 @@ jobs:
         fetch-depth: 0
       - name: Run Banana-check repo
         run: banana-check-repo
+
+      - name: compile with make
+        run: make
+        timeout-minutes: 2
+        env:
+          CC: epiclang
   run_tests:
     runs-on: ubuntu-latest
   push_to_mirror:
