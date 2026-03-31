@@ -1,5 +1,8 @@
 name: chocolatine
 
+permissions:
+  contents: read
+
 on:
   push:
     branches: [ main, master ]
@@ -17,11 +20,8 @@ jobs:
     container: epitechcontent/epitest-docker
 
     steps:
-      - name: get the repository file
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-      - name: Run Banana-check repo
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 #v4.1.1
+      - name: Checkout repository
         run: banana-check-repo
 
       - name: compile with make
@@ -29,7 +29,3 @@ jobs:
         timeout-minutes: 2
         env:
           CC: epiclang
-  run_tests:
-    runs-on: ubuntu-latest
-  push_to_mirror:
-    runs-on: ubuntu-latest
