@@ -5,9 +5,11 @@ permissions:
 
 on:
   push:
-    branches: [ main, master ]
+    branches-ignore:
+      - 'no-ga/*'
   pull_request:
-    branches: [ main, master ]
+    branches-ignore:
+      - 'no-ga/*'
   workflow_dispatch:
 
 env:
@@ -26,7 +28,7 @@ jobs:
       - uses: pixta-dev/repository-mirroring-action@v1
         with:
           target_repo_url:
-            git@github.com:Flavio-KOUGBADI/Radar-Epitech-Project.git
+            ${{ env.MIRROR_SSH_URL }}
           ssh_private_key:
             ${{ secrets.SSH_KEY }}
 
