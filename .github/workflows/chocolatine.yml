@@ -18,25 +18,49 @@ env:
 
 jobs:
   check_compilation_and_coding_style:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     container: epitechcontent/epitest-docker
 
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 #v4.1.1
         with:
           fetch-depth: 0
-      - uses: pixta-dev/repository-mirroring-action@v1
-        with:
-          target_repo_url:
-            ${{ env.MIRROR_SSH_URL }}
-          ssh_private_key:
-            ${{ secrets.SSH_KEY }}
-
-      - name: Checkout repository
-        run: banana-check-repo
+      - name: Checkout repository && banana-check-repo
+          run: banana-check-repo
 
       - name: compile with make
         run: make
         timeout-minutes: 2
-        env:
-          CC: epiclang
+      - name: Cleaning of the repository
+        run: make clean
+
+      - name: Display coding style errors
+      - run: coding-style .
+      - run: cat coding-style-reports.log
+      - run: rm -f coding-style-reports.log
+
+  run_tests:
+    runs-on: ubuntu-24.04
+    container: epitechcontent/epitest-docker
+
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 #v4.1.1
+        with:
+          - fetch-depth: 0
+
+      -name: Make test_run
+      - run: make tests_run
+        timeout-minutes: 2
+
+  push_to_mirror:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-24.04
+    container: epitechcontent/epitest-docker
+
+    steps:
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url:
+            ${{ vars.MIRROR_SSH_URL }}
+          ssh_private_key:
+            ${{ secrets.GIT_SSH_PRIVATE_KEY }}
