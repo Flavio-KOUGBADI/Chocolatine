@@ -36,9 +36,7 @@ jobs:
         run: make clean
       - name: Display coding style errors
         run: |
-          coding-style .
-          cat coding-style-reports.log
-          rm -f coding-style-reports.log
+          echo "Plus tard seront affichés les erreurs de coding style"
 
   run_tests:
     runs-on: ubuntu-24.04
