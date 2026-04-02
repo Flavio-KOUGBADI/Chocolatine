@@ -28,9 +28,7 @@ jobs:
       - name: Checkout repository && banana-check-repo
         run: banana-check-repo .
       - name: compile with make
-        run: make
-        env:
-          CC: epiclang
+        run: make CC=epiclang
         timeout-minutes: 2
       - name: Cleaning of the repository
         run: make clean
