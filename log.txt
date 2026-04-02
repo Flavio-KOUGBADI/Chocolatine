@@ -1,0 +1,15 @@
+epiclang -o bof *.c
+file.c:1:1: warning: [Banana] [Minor] file not starting with standard Epitech header (C-G1)
+    1 | int main(void) {return 0;}
+      | ^
+file.c:1:26: warning: [Banana] [Major] multiple statements on the same line (C-L1)
+    1 | int main(void) {return 0;}
+      |                          ^
+file.c:1:16: warning: [Banana] [Minor] function body opening brace on same line as prototype (C-L4)
+    1 | int main(void) {return 0;}
+      |                ^
+file.c:1:16: warning: [Banana] [Minor] function body opening brace not alone on its line (C-L4)
+file.c:1:26: warning: [Banana] [Minor] function body closing brace not alone on its line (C-L4)
+    1 | int main(void) {return 0;}
+      |                          ^
+5 warnings generated.

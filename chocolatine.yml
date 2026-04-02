@@ -28,8 +28,10 @@ jobs:
       - name: Checkout repository && banana-check-repo
         run: banana-check-repo .
       - name: compile with make
-        run: make CC=epiclang
+        run: make CC=epiclang &> log.txt
         timeout-minutes: 2
+      - name: Display coding-style errors
+        run: cat log.txt
       - name: Cleaning of the repository
         run: make clean
       - name: Display coding style errors
