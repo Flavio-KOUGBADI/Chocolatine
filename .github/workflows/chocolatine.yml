@@ -32,8 +32,7 @@ jobs:
         timeout-minutes: 2
       - name: Error Annotation
         run: |
-          awk -F':' '{ file=$1; print "file " file; line=$2; print "line " line; colum=$3; print "colum " column; type=$4 }'
-          print file
+          awk -F':' '{ file=$1; print "file " file; line=$2; print "line " line; colum=$3; print "colum " column; type=$4 }' log.txt
           if (type == "error")' {
             printf "::error file=%s,line=%s,col=%s::%s\n", file", line, colum, message)
 
